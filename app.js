@@ -38,10 +38,27 @@ app.get('/animals', function(req, res) {
   })
 })
 
-//show
-app.post('/animals/:id', function(req, res) {
+//create
+app.post('/animals', function(req, res) {
+	console.log(req.body);
+  var animal = Animal({
+  	name: req.body.name,
+  	breed: req.body.breed,
+  	dob: req.body.dob,
+  	gender: req.body.gender,
+  	family: req.body.family,
+  	status: req.body.status,
+  	createdAt: req.body.createdAt
+  	})
+
+  animal.save(function(err) {
+  	if (err) console.log(err);
+  	console.log('Animal has been added');
+  })
 
 })
+
+app.use('/animals', router);
 
 //new
 
