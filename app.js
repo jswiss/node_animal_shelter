@@ -21,12 +21,13 @@ app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 
-// //root path
-// app.get('/', function(req, res){
-//   res.render('blah')
-//   res.sendFile(path.join(__dirname + './views/index.html'));
-//   res.json(Animal.find());
-// })
+//sets static page
+app.use(express.static(__dirname));
+
+//root path
+app.get('/', function(req, res){
+  res.render(path.join(__dirname + '/views/index.ejs'));
+})
 
 //foods index path
 app.get('/animals', function(req, res) {
@@ -75,12 +76,6 @@ app.delete("/animals/:id", function (req, res) {
 })
 
 app.use('/animals', router);
-
-//new
-
-
-
-
 
 // development error handler
 // will print stacktrace
