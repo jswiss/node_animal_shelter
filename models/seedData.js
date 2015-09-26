@@ -1,5 +1,4 @@
 var seeder = require('mongoose-seed');
-// var Animal = require
 
 	// Connect to MongoDB via Mongoose 
 seeder.connect('mongodb://localhost/animal-shelter', function() {
