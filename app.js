@@ -55,7 +55,23 @@ app.post('/animals', function(req, res) {
   	if (err) console.log(err);
   	console.log('Animal has been added');
   })
+})
 
+app.put("/animals/:id", function(req, res) {
+	console.log(req.body.status);
+	Animal.update({_id: req.params.id}, {status: req.body.status}, function(err, updatedAnimal) {
+			if (err) console.log(err);
+			res.json(updatedAnimal);
+	})
+})
+
+app.delete("/animals/:id", function (req, res) {
+	console.log(req.params.id);
+	Animal.remove({_id: req.params.id}, function(err, removedAnimal) {
+		console.log("Delete animal");
+		if (err) console.log(err);
+		res.json(removedAnimal);
+	})
 })
 
 app.use('/animals', router);
