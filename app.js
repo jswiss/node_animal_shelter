@@ -21,7 +21,7 @@ app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 
-//sets static page
+//sets static page -- magic line of code
 app.use(express.static(__dirname));
 
 //root path
@@ -29,7 +29,7 @@ app.get('/', function(req, res){
   res.render(path.join(__dirname + '/views/index.ejs'));
 })
 
-//foods index path
+//animals index path
 app.get('/animals', function(req, res) {
   // res.sendFile(path.join(__dirname + './views/index.html'));
   
@@ -52,9 +52,10 @@ app.post('/animals', function(req, res) {
   	createdAt: req.body.createdAt
   	})
 
-  animal.save(function(err) {
+  animal.save(function(err, createdAnimal) {
   	if (err) console.log(err);
   	console.log('Animal has been added');
+  	res.json([createdAnimal])
   })
 })
 
@@ -66,6 +67,7 @@ app.put("/animals/:id", function(req, res) {
 	})
 })
 
+//Delete
 app.delete("/animals/:id", function (req, res) {
 	console.log(req.params.id);
 	Animal.remove({_id: req.params.id}, function(err, removedAnimal) {
